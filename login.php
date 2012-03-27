@@ -1,9 +1,12 @@
 <?php
 extract($_POST);
-	
+
+$encrypted_password = md5($password);	
+
 include "dbconnect.php";
 
-$strSQL = "SELECT * FROM Users WHERE username='$username' AND password='$password'";
+$strSQL = "SELECT * FROM Users WHERE username='$username' AND password='$encrypted_password'";
+
 $result = mysql_query($strSQL) or die (mysql_error());
 while($row = mysql_fetch_array($result)) {
 	extract($row);
@@ -12,7 +15,7 @@ while($row = mysql_fetch_array($result)) {
 if (empty($activationkey) == FALSE) {
 	header("Location: error.php?id=noactivation");
 	}
-elseif (mysql_num_rows($result)==1) {
+elseif (mysql_num_rows($result) == 1) {
 		if (isset($rememberme)) {
 			setcookie("cookie_login", "$username", time()+60*60*24);
 			setcookie("cookie_userid", "$id", time()+60*60*24);
@@ -26,6 +29,6 @@ elseif (mysql_num_rows($result)==1) {
 }
 else {
 		header("Location: error.php?id=wrongpass");		 
-	}
+}
 	mysql_close();
 ?>
