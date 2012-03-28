@@ -1,12 +1,13 @@
 <?php
 include "check.php";
+include "dbconnect.php";
+
 $following = $_GET["id"];
 $follower = $_SESSION["userid"];
 
-include "dbconnect.php";
+$strSQL = "INSERT INTO Follow(follower, following) values('$follower', '$following')";
 
-	$strSQL = "INSERT INTO Follow(follower, following) values('$follower', '$following')";
-	$result1 = mysql_query($strSQL) or die (mysql_error());
+$result = mysql_query($strSQL) or die (mysql_error());
 	
-	header("Location: success.php?id=follow");	
+header("Location: success.php?id=follow");	
 ?>

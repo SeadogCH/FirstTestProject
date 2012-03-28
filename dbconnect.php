@@ -1,4 +1,5 @@
 <?php
+$server_url = "http://localhost:8888/test";
 $dbhost = "localhost";
 $dbusername ="root";
 $dbpassword = "arvestokora";
